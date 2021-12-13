@@ -12,7 +12,7 @@ namespace AUHTPS_Coursework
     {
         private static bool _pump_ValveOn;
         private static bool _waterDrain_ValveOn;
-        private MainTankBL mainTankModel;
+        private MainTankModel mainTankModel;
         DispatcherTimer timerAdd, timerWaterDrain;
         Config _config;
         private Random random = new Random();
@@ -26,11 +26,11 @@ namespace AUHTPS_Coursework
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            mainTankModel = new MainTankBL();
+            mainTankModel = new MainTankModel();
             
             trackBar_Level.Enabled = false;
             progressBar_Tank.Minimum = 0;
-            progressBar_Tank.Maximum = 100;
+            progressBar_Tank.Maximum = _config.Max4TankScaleLevel;
 
             timerAdd = new DispatcherTimer();
             timerWaterDrain = new DispatcherTimer();
@@ -39,12 +39,12 @@ namespace AUHTPS_Coursework
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
-            if(mainTankModel.TankLevel < 100)
+            if(mainTankModel.OriginalTankLevel < _config.Max4TankScaleLevel)
             {
                 button_PumpValve.Enabled = true;
             }
-            label_Level.Text = trackBar_Level.Value.ToString();
-            labelFinalResult.Text = label_Level.Text;
+            label_Level.Text = trackBar_Level.Value.ToString() + " см";
+            //labelFinalResult.Text = label_Level.Text;
         }
 
         private void pictureBox2_MouseClick(object sender, MouseEventArgs e)
@@ -72,11 +72,10 @@ namespace AUHTPS_Coursework
         //for DispatcherTimer
         private void timer_Tick_Add(object sender, EventArgs e)
         {
-            if (mainTankModel.TankLevel < 100)
+            if (mainTankModel.OriginalTankLevel < _config.Max4TankScaleLevel)
             {
                 mainTankModel.Add(1);
-                progressBar_Tank.Value = mainTankModel.TankLevel;
-                trackBar_Level.Value = mainTankModel.TankLevel;
+                CalculateTheValues(mainTankModel);
             }
             else
             {
@@ -85,11 +84,6 @@ namespace AUHTPS_Coursework
                 Helpers.TurnOffButton(button_PumpValve);
                 button_PumpValve.Enabled = false;
             }
-        }
-
-        private int GetCurrentMainTankLevel()
-        {
-            return Convert.ToInt32(progressBar_Tank.Value);
         }
 
         private void button_WaterDrainValve_Click(object sender, EventArgs e)
@@ -104,11 +98,10 @@ namespace AUHTPS_Coursework
 
         private void timer_Tick_WaterDrain(object sender, EventArgs e)
         {
-            if (mainTankModel.TankLevel > 0)
+            if (mainTankModel.OriginalTankLevel > 0)
             {
                 mainTankModel.WaterDrain(1);
-                progressBar_Tank.Value = mainTankModel.TankLevel;
-                trackBar_Level.Value = mainTankModel.TankLevel;
+                CalculateTheValues(mainTankModel);
             }
             else
             {
@@ -118,7 +111,34 @@ namespace AUHTPS_Coursework
             }
         }
 
-        
+        private void button_WriteDataToList_Click(object sender, EventArgs e)
+        {
+            dataGridView1_ResultValues.AllowUserToAddRows = false;
+            dataGridView1_ResultValues.Rows.Add(progressBar_Tank.Value.ToString().Split(' ')[0],
+                label_SensorsValue.Text.Split(' ')[0]);
+            //Split() is needed to remove "см/у.ед." from label values
+            //this.dataGridView1_ResultValues.Rows[index].Cells[1].Value = progressBar_Tank.Value.ToString().Split(' ')[0];
+            //this.dataGridView1_ResultValues.Rows[index].Cells[2].Value = label_SensorsValue.Text.Split(' ')[0];
+
+        }
+
+        private void CalculateTheValues(MainTankModel mainTankModel)
+        {
+            progressBar_Tank.Value = mainTankModel.OriginalTankLevel;
+            label_SensorsValue.Text = SensorHelper.GetSensorsValue(_config.Max4TankScaleLevel, _config.Max4Sensor, mainTankModel.OriginalTankLevel).ToString();
+            trackBar_Level.Value = mainTankModel.OriginalTankLevel;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ClearTableWithResults();
+        }
+
+        private void ClearTableWithResults()
+        {
+            dataGridView1_ResultValues.Rows.Clear();
+            dataGridView1_ResultValues.Refresh();
+        }
 
         private void ResetTheSystem()
         {            
@@ -127,9 +147,9 @@ namespace AUHTPS_Coursework
                 timerAdd.Stop();
                 timerWaterDrain.Stop();
             }
-            mainTankModel = new MainTankBL();
-            progressBar_Tank.Value = mainTankModel.TankLevel;
-            trackBar_Level.Value = mainTankModel.TankLevel;
+            mainTankModel = new MainTankModel();
+            progressBar_Tank.Value = mainTankModel.OriginalTankLevel;
+            trackBar_Level.Value = mainTankModel.OriginalTankLevel;
             _pump_ValveOn = false;
             _waterDrain_ValveOn = false;
 
@@ -143,6 +163,8 @@ namespace AUHTPS_Coursework
 
             Helpers.TurnOffButton(button_PumpValve);
             Helpers.TurnOffButton(button_WaterDrainValve);
+
+            //ClearTableWithResults();
         }
     }
 }
