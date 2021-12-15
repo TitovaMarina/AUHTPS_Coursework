@@ -54,7 +54,7 @@ namespace AUHTPS_Coursework
             this.MinimizeBox = false;
             this.Name = "Info";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Info";
+            this.Text = "Обозначения схемы установки";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -40,19 +40,22 @@ namespace AUHTPS_Coursework
             this.label3 = new System.Windows.Forms.Label();
             this.label_SensorsValue = new System.Windows.Forms.Label();
             this.trackBar_Level = new System.Windows.Forms.TrackBar();
+            this.progressBar_Tank = new AUHTPS_Coursework.VerticalProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button_Stop = new System.Windows.Forms.Button();
             this.button_WriteDataToList = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1_ResultValues = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.dataGridView1_ResultValues = new System.Windows.Forms.DataGridView();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.TankColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SensorColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.progressBar_Tank = new AUHTPS_Coursework.VerticalProgressBar();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_Level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -78,13 +81,16 @@ namespace AUHTPS_Coursework
             this.label_Level.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_Level.Location = new System.Drawing.Point(20, 66);
             this.label_Level.Name = "label_Level";
-            this.label_Level.Size = new System.Drawing.Size(27, 29);
+            this.label_Level.Size = new System.Drawing.Size(66, 29);
             this.label_Level.TabIndex = 7;
-            this.label_Level.Text = "0";
+            this.label_Level.Text = "0 см";
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.button_PumpValve);
             this.groupBox1.Controls.Add(this.button_WaterDrainValve);
@@ -169,12 +175,14 @@ namespace AUHTPS_Coursework
             this.label_SensorsValue.ForeColor = System.Drawing.Color.Black;
             this.label_SensorsValue.Location = new System.Drawing.Point(645, 145);
             this.label_SensorsValue.Name = "label_SensorsValue";
-            this.label_SensorsValue.Size = new System.Drawing.Size(32, 32);
+            this.label_SensorsValue.Size = new System.Drawing.Size(107, 32);
             this.label_SensorsValue.TabIndex = 16;
-            this.label_SensorsValue.Text = "0";
+            this.label_SensorsValue.Text = "0 у.ед.";
             // 
             // trackBar_Level
             // 
+            this.trackBar_Level.BackColor = System.Drawing.Color.White;
+            this.trackBar_Level.Enabled = false;
             this.trackBar_Level.Location = new System.Drawing.Point(25, 121);
             this.trackBar_Level.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar_Level.Maximum = 100;
@@ -183,6 +191,14 @@ namespace AUHTPS_Coursework
             this.trackBar_Level.Size = new System.Drawing.Size(56, 225);
             this.trackBar_Level.TabIndex = 15;
             this.trackBar_Level.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
+            // 
+            // progressBar_Tank
+            // 
+            this.progressBar_Tank.Location = new System.Drawing.Point(148, 126);
+            this.progressBar_Tank.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.progressBar_Tank.Name = "progressBar_Tank";
+            this.progressBar_Tank.Size = new System.Drawing.Size(91, 206);
+            this.progressBar_Tank.TabIndex = 14;
             // 
             // pictureBox1
             // 
@@ -263,29 +279,18 @@ namespace AUHTPS_Coursework
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Область данных";
             // 
-            // label6
+            // dataGridView1_ResultValues
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(200, 30);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(98, 54);
-            this.label6.TabIndex = 19;
-            this.label6.Text = "Показания\r\nвторичного\r\nприбора";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(52, 32);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(134, 54);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Показания H по\r\nизмерительной \r\nлинейке";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.dataGridView1_ResultValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1_ResultValues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TankColumn,
+            this.SensorColumn});
+            this.dataGridView1_ResultValues.Location = new System.Drawing.Point(6, 96);
+            this.dataGridView1_ResultValues.Name = "dataGridView1_ResultValues";
+            this.dataGridView1_ResultValues.RowHeadersWidth = 51;
+            this.dataGridView1_ResultValues.RowTemplate.Height = 24;
+            this.dataGridView1_ResultValues.Size = new System.Drawing.Size(343, 286);
+            this.dataGridView1_ResultValues.TabIndex = 19;
             // 
             // button2
             // 
@@ -301,18 +306,62 @@ namespace AUHTPS_Coursework
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // dataGridView1_ResultValues
+            // label6
             // 
-            this.dataGridView1_ResultValues.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1_ResultValues.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TankColumn,
-            this.SensorColumn});
-            this.dataGridView1_ResultValues.Location = new System.Drawing.Point(6, 96);
-            this.dataGridView1_ResultValues.Name = "dataGridView1_ResultValues";
-            this.dataGridView1_ResultValues.RowHeadersWidth = 51;
-            this.dataGridView1_ResultValues.RowTemplate.Height = 24;
-            this.dataGridView1_ResultValues.Size = new System.Drawing.Size(343, 286);
-            this.dataGridView1_ResultValues.TabIndex = 19;
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(208, 30);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(120, 54);
+            this.label6.TabIndex = 19;
+            this.label6.Text = "Показания\r\nвторичного\r\nприбора, у.ед.";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(46, 32);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(134, 54);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Показания H по\r\nизмерительной \r\nлинейке, см";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(164, 186);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 20);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "Бак 1";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label8.Location = new System.Drawing.Point(16, 362);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(131, 36);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Измерительная\r\nлинейка";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(553, 76);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(178, 36);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Вторичный цифровой\r\nприбор";
             // 
             // TankColumn
             // 
@@ -328,14 +377,6 @@ namespace AUHTPS_Coursework
             this.SensorColumn.Name = "SensorColumn";
             this.SensorColumn.ReadOnly = true;
             // 
-            // progressBar_Tank
-            // 
-            this.progressBar_Tank.Location = new System.Drawing.Point(148, 126);
-            this.progressBar_Tank.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.progressBar_Tank.Name = "progressBar_Tank";
-            this.progressBar_Tank.Size = new System.Drawing.Size(91, 206);
-            this.progressBar_Tank.TabIndex = 14;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -350,7 +391,7 @@ namespace AUHTPS_Coursework
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Имитационная система градуировки гидростатического уровнемера";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -386,6 +427,9 @@ namespace AUHTPS_Coursework
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridView dataGridView1_ResultValues;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.DataGridViewTextBoxColumn TankColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn SensorColumn;
     }

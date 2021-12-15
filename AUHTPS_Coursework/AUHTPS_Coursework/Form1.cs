@@ -80,7 +80,7 @@ namespace AUHTPS_Coursework
             else
             {
                 timerAdd.Stop();
-                MessageBox.Show("Внимание! Уровень вещества в баке достиг своего максимума. Работа насоса будет приостановлена. Пожалуйста воспользуйтесь вентилем слива.");
+                MessageBox.Show("Уровень вещества в баке достиг своего максимума. Работа насоса будет приостановлена. Пожалуйста воспользуйтесь вентилем слива.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Helpers.TurnOffButton(button_PumpValve);
                 button_PumpValve.Enabled = false;
             }
@@ -106,7 +106,8 @@ namespace AUHTPS_Coursework
             else
             {
                 timerWaterDrain.Stop();
-                MessageBox.Show("Внимание! Бак полностью опустошен.");
+                MessageBox.Show("Бак полностью опустошен.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 Helpers.TurnOffButton(button_WaterDrainValve);
             }
         }
@@ -150,6 +151,7 @@ namespace AUHTPS_Coursework
             mainTankModel = new MainTankModel();
             progressBar_Tank.Value = mainTankModel.OriginalTankLevel;
             trackBar_Level.Value = mainTankModel.OriginalTankLevel;
+            label_SensorsValue.Text = "0 у.ед.";
             _pump_ValveOn = false;
             _waterDrain_ValveOn = false;
 
