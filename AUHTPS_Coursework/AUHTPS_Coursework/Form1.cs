@@ -83,6 +83,7 @@ namespace AUHTPS_Coursework
                 MessageBox.Show("Уровень вещества в баке достиг своего максимума. Работа насоса будет приостановлена. Пожалуйста воспользуйтесь вентилем слива.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Helpers.TurnOffButton(button_PumpValve);
                 button_PumpValve.Enabled = false;
+                _pump_ValveOn = false;
             }
         }
 
@@ -107,7 +108,7 @@ namespace AUHTPS_Coursework
             {
                 timerWaterDrain.Stop();
                 MessageBox.Show("Бак полностью опустошен.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                _waterDrain_ValveOn = false;
                 Helpers.TurnOffButton(button_WaterDrainValve);
             }
         }
@@ -126,8 +127,15 @@ namespace AUHTPS_Coursework
         private void CalculateTheValues(MainTankModel mainTankModel)
         {
             progressBar_Tank.Value = mainTankModel.OriginalTankLevel;
-            label_SensorsValue.Text = SensorHelper.GetSensorsValue(_config.Max4TankScaleLevel, _config.Max4Sensor, mainTankModel.OriginalTankLevel).ToString();
             trackBar_Level.Value = mainTankModel.OriginalTankLevel;
+            if (_pump_ValveOn)
+            {
+                label_SensorsValue.Text = SensorHelper.GetIncreaseSensorsValue(_config.Max4TankScaleLevel, _config.Max4Sensor, mainTankModel.OriginalTankLevel).ToString();
+            }
+            else if(_waterDrain_ValveOn)
+            {
+                label_SensorsValue.Text = SensorHelper.GetDecreaseSensorsValue(_config.Max4TankScaleLevel, _config.Max4Sensor, mainTankModel.OriginalTankLevel).ToString();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
